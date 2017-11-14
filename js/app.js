@@ -1,15 +1,11 @@
 // Enemies our player must avoid
 
 class Enemy {
-    // Variables applied to each of our instances go here,
-    // we've provided one for you to get started
-
-    // The image/sprite for our enemies, this uses
-    // a helper we've provided to easily load images
-    constructor (x, y) {
+    constructor (x, y, speed) {
         this.sprite = 'images/enemy-bug.png';
-        this.x = x
-        this.y = y
+        this.x = x;
+        this.y = y;
+        this.speed = speed;
     }
     // Update the enemy's position, required method for game
     // Parameter: dt, a time delta between ticks
@@ -23,31 +19,7 @@ class Enemy {
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     }
 
-}
-
-
-
-
-
-/**
-
-var Enemy = function() {
-
-    this.sprite = 'images/enemy-bug.png';
 };
-
-
-Enemy.prototype.update = function(dt) {
-
-};
-
-
-Enemy.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-};
-
-**/
-
 
 
 
@@ -56,7 +28,7 @@ Enemy.prototype.render = function() {
 // a handleInput() method.
 class Player {
     constructor(x, y) {
-        this.sprite = 'images/char-boy.png';
+        this.sprite = 'images/char-horn-girl.png';
         this.x = x;
         this.y = y; 
     }
@@ -73,14 +45,24 @@ class Player {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     }
 
-}
-
+};
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
-const player = new Player(252, 450);
+// Creates the player object
+const player = new Player(205, 425);
+
+
+// Creates the enemies objects
+allEnemies = [];
+const enemy1 = new Enemy(100, 230);
+const enemy2 = new Enemy(250, 60);
+const enemy3 = new Enemy(200, 145);
+// Adds the enemy objects to the enemies array
+allEnemies.push(enemy1, enemy2, enemy3);
+
 
 
 // This listens for key presses and sends the keys to your
