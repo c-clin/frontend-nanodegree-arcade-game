@@ -64,6 +64,16 @@ class Player {
         // going down = y + 80
     }
 
+    reset() {
+        this.x = 305;
+        this.y = 465;
+    }
+
+    // Create collision 
+    // If enemy.x = player.x, reset 
+
+
+
 };
 
 // Now instantiate your objects.
@@ -73,8 +83,6 @@ class Player {
 // Creates the player object
 const player = new Player(305, 465);
 
-
-//205, 385
 
 
 // Creates the enemies objects
