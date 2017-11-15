@@ -37,12 +37,32 @@ class Player {
 
     }
 
-    handleInput() {
-
+    render() {
+        ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     }
 
-    render() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+
+    handleInput(event) {
+
+        switch (event) {
+            case "left":
+              this.x -= 100;
+              break;
+            case "right":
+              this.x += 100;
+              break;
+            case "up":
+              this.y -= 80;
+              break;
+            case "down":
+              this.y += 80;
+              break;
+        }
+
+        // going left = x - 100
+        // going right = x + 100
+        // going up = y - 70
+        // going down = y + 70
     }
 
 };
@@ -52,7 +72,10 @@ class Player {
 // Place the player object in a variable called player
 
 // Creates the player object
-const player = new Player(205, 425);
+const player = new Player(205, 365);
+
+
+//205, 385
 
 
 // Creates the enemies objects
@@ -74,6 +97,5 @@ document.addEventListener('keyup', function(e) {
         39: 'right',
         40: 'down'
     };
-
     player.handleInput(allowedKeys[e.keyCode]);
 });
