@@ -41,6 +41,28 @@ class Player {
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     }
 
+    setBoundaries() {
+        // Setting boundaries for the x-axis
+        if (this.x > 605 || this.x < 5) {
+            if (this.x > 605) {
+                this.x = 605;
+            }   
+            else {
+                this.x = 5;
+            }
+        }
+        // Setting boundaries for the y-axis
+        if (this.y > 465 || this.y < -45) {
+            if (this.y > 465) {
+                this.y = 465;
+            }
+            else {
+                this.y = -45;
+            }
+        }   
+
+    }   
+
 
     handleInput(event) {
 
@@ -68,6 +90,8 @@ class Player {
         this.x = 305;
         this.y = 465;
     }
+
+
 
     // Create collision 
     // If enemy.x = player.x, reset 
@@ -106,4 +130,5 @@ document.addEventListener('keyup', function(e) {
         40: 'down'
     };
     player.handleInput(allowedKeys[e.keyCode]);
+    player.setBoundaries();
 });
