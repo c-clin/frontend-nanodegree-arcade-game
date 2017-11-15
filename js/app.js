@@ -52,17 +52,16 @@ class Player {
               this.x += 100;
               break;
             case "up":
-              this.y -= 80;
+              this.y -= 85;
               break;
             case "down":
-              this.y += 80;
+              this.y += 85;
               break;
         }
-
         // going left = x - 100
         // going right = x + 100
-        // going up = y - 70
-        // going down = y + 70
+        // going up = y - 80
+        // going down = y + 80
     }
 
 };
@@ -72,7 +71,7 @@ class Player {
 // Place the player object in a variable called player
 
 // Creates the player object
-const player = new Player(205, 365);
+const player = new Player(305, 465);
 
 
 //205, 385
@@ -80,11 +79,12 @@ const player = new Player(205, 365);
 
 // Creates the enemies objects
 allEnemies = [];
-const enemy1 = new Enemy(100, 230);
-const enemy2 = new Enemy(250, 60);
-const enemy3 = new Enemy(200, 145);
+const enemy1 = new Enemy(100, 40);
+const enemy2 = new Enemy(250, 125);
+const enemy3 = new Enemy(200, 210);
+const enemy4 = new Enemy(150, 295);
 // Adds the enemy objects to the enemies array
-allEnemies.push(enemy1, enemy2, enemy3);
+allEnemies.push(enemy1, enemy2, enemy3, enemy4);
 
 
 
