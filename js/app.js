@@ -1,11 +1,8 @@
-let lives, score;
-
-lives = 5;
-score = 0;
+let lives = 5;
+let score = 0;
 
 $(".lives").html(lives);
 $(".score").html(score);
-
 
 // Enemies our player must avoid
 
@@ -40,6 +37,7 @@ class Enemy {
             if (player.y = this.y) {
                 player.reset();
                 lives--;
+                $(".lives").html(lives);
             }
         }
     }      
@@ -65,6 +63,7 @@ class Player {
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     }
 
+    // Setting boundaries so the player does not go off grid
     setBoundaries() {
         // Setting boundaries for the x-axis
         if (this.x > 605 || this.x < 5) {
@@ -118,6 +117,9 @@ class Player {
     winGame() {
         if (this.y < 0) {
             this.reset(); 
+            score++;
+            $(".score").html(score);
+            console.log('Score: ' + score);
         }
     }
 }
@@ -138,16 +140,31 @@ class Collectibles {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     }
 
+    // Randomize the placement of the collectible
+    setPlacement() {
+        horizontals = [0, 0, 0, 105, 205, 305, 405, 505, 605];
+        verticals = [0, 0, 0, -45, 40, 125, 201 ,295];
+
+        let horizontal = horizontals[Math.floor(Math.random() * horizontals.length)];
+        let vertical = verticals[Math.floor(Math.random() * verticals.length)];
+        console.log(horizontal);
+        console.log(vertical);
+
+        this.x = horizontal;
+        this.y = vertical;
+    }
+
     // Create collision with the Player
     setCollision() {
         if (player.x = this.x) {
             if (player.y = this.y) {
                 lives++;
+                $(".lives").html(lives);
+                console.log('Lives: ' + lives);
+                this.setPlacement(); // Reset the heart placement 
             }
         }
     } 
-
-
 } 
 
 
@@ -166,7 +183,6 @@ const enemy3 = new Enemy(200, 210);
 const enemy4 = new Enemy(150, 295);
 // Adds the enemy objects to the enemies array
 allEnemies.push(enemy1, enemy2, enemy3, enemy4);
-console.log(allEnemies);
 
 
 // Create the collectible objects
