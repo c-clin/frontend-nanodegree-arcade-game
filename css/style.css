@@ -3,3 +3,19 @@ body {
     background-image: url('../images/background.png');
     background-position: center;
 }
+
+.title {
+	font-family: 'Bungee Shade';
+	font-size: 150%;
+
+}
+
+.board {
+	font-family: 'Iceland';
+	font-size: 230%;
+	color: #f9e440;
+}
+
+.lives {
+	margin-right: 5px;
+}

@@ -1,3 +1,13 @@
+var lives, score;
+
+lives = 5;
+score = 0;
+
+$(".lives").html(lives);
+$(".score").html(score);
+
+
+
 // Enemies our player must avoid
 
 class Enemy {
@@ -30,6 +40,7 @@ class Enemy {
         if (player.x = this.x) {
             if (player.y = this.y) {
                 player.reset();
+                lives--;
             }
         }
     }      
@@ -120,6 +131,18 @@ class Collectibles {
     render() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     }
+
+    // Create collision with the Player
+    setCollision() {
+        if (player.x = this.x) {
+            if (player.y = this.y) {
+                player.reset();
+                lives--;
+            }
+        }
+    } 
+
+
 } 
 
 
@@ -129,9 +152,6 @@ class Collectibles {
 
 // Creates the player object
 const player = new Player(305, 465);
-
-
-
 
 // Creates the enemies objects
 allEnemies = [];
@@ -143,6 +163,9 @@ const enemy4 = new Enemy(150, 295);
 allEnemies.push(enemy1, enemy2, enemy3, enemy4);
 console.log(allEnemies);
 
+
+// Create the collectible objects
+const heart = new Collectibles(200,125);
 
 
 // This listens for key presses and sends the keys to your
