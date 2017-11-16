@@ -13,12 +13,26 @@ class Enemy {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
+
+
+        // let distance = speed  * dt;
+        // this.x = this.x + distance
+
+
     }
     // Draw the enemy on the screen, required method for game
     render() {
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     }
 
+    // Create collision with the Player
+    setCollision() {
+        if (player.x = this.x) {
+            if (player.y = this.y) {
+                player.reset();
+            }
+        }
+    }      
 };
 
 
@@ -60,7 +74,6 @@ class Player {
                 this.y = -45;
             }
         }   
-
     }   
 
 
@@ -90,15 +103,25 @@ class Player {
         this.x = 305;
         this.y = 465;
     }
+}
 
 
+class Collectibles {
+    constructor(x, y) {
+        this.sprite = 'images/Heart.png';
+        this.x = x;
+        this.y = y; 
+    }
 
-    // Create collision 
-    // If enemy.x = player.x, reset 
+    update(dt) {
 
+    }
 
+    render() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    }
+} 
 
-};
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
@@ -109,14 +132,16 @@ const player = new Player(305, 465);
 
 
 
+
 // Creates the enemies objects
 allEnemies = [];
-const enemy1 = new Enemy(100, 40);
+const enemy1 = new Enemy(305, 40);
 const enemy2 = new Enemy(250, 125);
 const enemy3 = new Enemy(200, 210);
 const enemy4 = new Enemy(150, 295);
 // Adds the enemy objects to the enemies array
 allEnemies.push(enemy1, enemy2, enemy3, enemy4);
+console.log(allEnemies);
 
 
 
