@@ -1,11 +1,10 @@
-var lives, score;
+let lives, score;
 
 lives = 5;
 score = 0;
 
 $(".lives").html(lives);
 $(".score").html(score);
-
 
 
 // Enemies our player must avoid
@@ -87,7 +86,6 @@ class Player {
         }   
     }   
 
-
     handleInput(event) {
 
         switch (event) {
@@ -111,6 +109,7 @@ class Player {
     }
 
     reset() {
+        // Reset the player's position
         this.x = 305;
         this.y = 465;
     }
@@ -137,7 +136,7 @@ class Collectibles {
         if (player.x = this.x) {
             if (player.y = this.y) {
                 player.reset();
-                lives--;
+                lives++;
             }
         }
     } 
@@ -165,7 +164,7 @@ console.log(allEnemies);
 
 
 // Create the collectible objects
-const heart = new Collectibles(200,125);
+const heart = new Collectibles(105,125);
 
 
 // This listens for key presses and sends the keys to your
