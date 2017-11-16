@@ -104,8 +104,8 @@ class Player {
         }
         // going left = x - 100
         // going right = x + 100
-        // going up = y - 80
-        // going down = y + 80
+        // going up = y - 85
+        // going down = y + 85
     }
 
     reset() {
@@ -113,9 +113,16 @@ class Player {
         this.x = 305;
         this.y = 465;
     }
+
+    // Resets the player position when it reaches the water
+    winGame() {
+        if (this.y < 0) {
+            this.reset(); 
+        }
+    }
 }
 
-
+// Create a new class for collectibles
 class Collectibles {
     constructor(x, y) {
         this.sprite = 'images/Heart.png';
@@ -135,7 +142,6 @@ class Collectibles {
     setCollision() {
         if (player.x = this.x) {
             if (player.y = this.y) {
-                player.reset();
                 lives++;
             }
         }
@@ -178,4 +184,5 @@ document.addEventListener('keyup', function(e) {
     };
     player.handleInput(allowedKeys[e.keyCode]);
     player.setBoundaries();
+    player.winGame();
 });
