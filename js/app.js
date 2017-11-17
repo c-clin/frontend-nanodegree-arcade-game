@@ -16,31 +16,51 @@ class Enemy {
     // Update the enemy's position, required method for game
     // Parameter: dt, a time delta between ticks
     update(dt) {
-    // You should multiply any movement by the dt parameter
-    // which will ensure the game runs at the same speed for
-    // all computers.
+      // You should multiply any movement by the dt parameter
+      // which will ensure the game runs at the same speed for
+      // all computers.
 
+      //this.x++
+      this.x += this.speed * dt;
 
-        // let distance = speed  * dt;
-        // this.x = this.x + distance
+      if (this.x > ctx.canvas.width) this.x = -100;
 
+      this.checkCollision();
 
-    }
+    }    
     // Draw the enemy on the screen, required method for game
     render() {
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     }
 
-    // Create collision with the Player
-    setCollision() {
-        if (player.x = this.x) {
-            if (player.y = this.y) {
-                player.reset();
-                lives--;
-                $(".lives").html(lives);
-            }
-        }
-    }      
+    checkCollision() {
+      // https://developer.mozilla.org/kab/docs/Games/Techniques/2D_collision_detection
+      var rect1 = {
+        x: this.x,
+        y: this.y,
+        width: 40,
+        height: 40
+      };
+
+      var rect2 = {
+        x: player.x,
+        y: player.y,
+        width: 40,
+        height: 40
+      };
+
+      if (
+        rect1.x < rect2.x + rect2.width &&
+        rect1.x + rect1.width > rect2.x &&
+        rect1.y < rect2.y + rect2.height &&
+        rect1.height + rect1.y > rect2.y
+      ) {
+        console.log("Collision Detected");
+        player.reset();
+        lives--;
+        $(".lives").html(lives);
+      }
+    } 
 };
 
 
@@ -133,6 +153,8 @@ class Collectibles {
     }
 
     update(dt) {
+        // Call the collision function
+        this.setCollision();
 
     }
 
@@ -142,29 +164,59 @@ class Collectibles {
 
     // Randomize the placement of the collectible
     setPlacement() {
+        // The possible xy coordinates for the placement
         horizontals = [0, 0, 0, 105, 205, 305, 405, 505, 605];
         verticals = [0, 0, 0, -45, 40, 125, 201 ,295];
-
+        // Randomize the index number picked
         let horizontal = horizontals[Math.floor(Math.random() * horizontals.length)];
         let vertical = verticals[Math.floor(Math.random() * verticals.length)];
         console.log(horizontal);
         console.log(vertical);
-
+        // Set the placement equal to the randomized placement
         this.x = horizontal;
         this.y = vertical;
     }
 
-    // Create collision with the Player
     setCollision() {
-        if (player.x = this.x) {
-            if (player.y = this.y) {
-                lives++;
-                $(".lives").html(lives);
-                console.log('Lives: ' + lives);
-                this.setPlacement(); // Reset the heart placement 
-            }
+        var rect1 = {
+        x: this.x,
+        y: this.y,
+        width: 40,
+        height: 40
+        };
+
+        var rect2 = {
+        x: player.x,
+        y: player.y,
+        width: 40,
+        height: 40
+        };
+
+        if (
+        rect1.x < rect2.x + rect2.width &&
+        rect1.x + rect1.width > rect2.x &&
+        rect1.y < rect2.y + rect2.height &&
+        rect1.height + rect1.y > rect2.y
+        ) {
+
+        console.log("Heart Collision Detected");
+        lives++;
+        $(".lives").html(lives);
+        setPlacement();
         }
-    } 
+    }
+
+    // Create collision with the Player
+    // setCollision() {
+    //     if (player.x = this.x) {
+    //         if (player.y = this.y) {
+    //             lives++;
+    //             $(".lives").html(lives);
+    //             console.log('Lives: ' + lives);
+    //             this.setPlacement(); // Reset the heart placement 
+    //         }
+    //     }
+    // } 
 } 
 
 
@@ -177,10 +229,10 @@ const player = new Player(305, 465);
 
 // Creates the enemies objects
 allEnemies = [];
-const enemy1 = new Enemy(305, 40);
-const enemy2 = new Enemy(250, 125);
-const enemy3 = new Enemy(200, 210);
-const enemy4 = new Enemy(150, 295);
+const enemy1 = new Enemy(305, 40, 300);
+const enemy2 = new Enemy(250, 125, 350);
+const enemy3 = new Enemy(200, 210, 400);
+const enemy4 = new Enemy(150, 295, 250);
 // Adds the enemy objects to the enemies array
 allEnemies.push(enemy1, enemy2, enemy3, enemy4);
 
