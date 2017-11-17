@@ -4,6 +4,9 @@ let score = 0;
 $(".lives").html(lives);
 $(".score").html(score);
 
+horizontals = [-1000, -1000, -1000, -1000, 105, 205, 305, 405, 505, 605];
+verticals = [-1000, -1000, -1000, -1000, 40, 125, 201 ,295];
+
 // Enemies our player must avoid
 
 class Enemy {
@@ -140,6 +143,7 @@ class Player {
             score++;
             $(".score").html(score);
             console.log('Score: ' + score);
+            heart.setPlacement();
         }
     }
 }
@@ -155,18 +159,18 @@ class Collectibles {
     update(dt) {
         // Call the collision function
         this.setCollision();
-
+        if (this.x > ctx.canvas.width) this.x = -1000;
+        if (this.y > ctx.canvas.width) this.y = -1000;
     }
 
     render() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+        ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     }
 
     // Randomize the placement of the collectible
     setPlacement() {
         // The possible xy coordinates for the placement
-        horizontals = [0, 0, 0, 105, 205, 305, 405, 505, 605];
-        verticals = [0, 0, 0, -45, 40, 125, 201 ,295];
+
         // Randomize the index number picked
         let horizontal = horizontals[Math.floor(Math.random() * horizontals.length)];
         let vertical = verticals[Math.floor(Math.random() * verticals.length)];
@@ -177,6 +181,7 @@ class Collectibles {
         this.y = vertical;
     }
 
+    // Create a collision method with the player
     setCollision() {
         var rect1 = {
         x: this.x,
@@ -202,21 +207,9 @@ class Collectibles {
         console.log("Heart Collision Detected");
         lives++;
         $(".lives").html(lives);
-        setPlacement();
+        this.setPlacement();
         }
     }
-
-    // Create collision with the Player
-    // setCollision() {
-    //     if (player.x = this.x) {
-    //         if (player.y = this.y) {
-    //             lives++;
-    //             $(".lives").html(lives);
-    //             console.log('Lives: ' + lives);
-    //             this.setPlacement(); // Reset the heart placement 
-    //         }
-    //     }
-    // } 
 } 
 
 
