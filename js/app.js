@@ -4,6 +4,7 @@ let score = 0;
 $(".lives").html(lives);
 $(".score").html(score);
 
+// xy coordinates for the heart collectible 
 horizontals = [-1000, -1000, -1000, -1000, 105, 205, 305, 405, 505, 605];
 verticals = [-1000, -1000, -1000, -1000, 40, 125, 201 ,295];
 
@@ -65,8 +66,6 @@ class Enemy {
       }
     } 
 };
-
-
 
 // Now write your own player class
 // This class requires an update(), render() and
@@ -169,8 +168,6 @@ class Collectibles {
 
     // Randomize the placement of the collectible
     setPlacement() {
-        // The possible xy coordinates for the placement
-
         // Randomize the index number picked
         let horizontal = horizontals[Math.floor(Math.random() * horizontals.length)];
         let vertical = verticals[Math.floor(Math.random() * verticals.length)];
@@ -212,6 +209,17 @@ class Collectibles {
     }
 } 
 
+class Gem extends Collectibles {
+    constructor(x, y) {
+        super(x, y);
+        this.sprite = "images/Gem Orange.png";
+    }
+
+   render() {
+        super.render();
+    }
+
+}
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
@@ -222,16 +230,20 @@ const player = new Player(305, 465);
 
 // Creates the enemies objects
 allEnemies = [];
-const enemy1 = new Enemy(305, 40, 300);
-const enemy2 = new Enemy(250, 125, 350);
-const enemy3 = new Enemy(200, 210, 400);
-const enemy4 = new Enemy(150, 295, 250);
+const enemy1 = new Enemy(5, 40, 300); 
+const enemy11 = new Enemy(5, 40, 550);
+const enemy2 = new Enemy(5, 125, 450);
+const enemy3 = new Enemy(5, 210, 350);
+const enemy33 = new Enemy(5, 210, 600);
+const enemy4 = new Enemy(5, 295, 250);
+const enemy44 = new Enemy(5, 295, 500);
 // Adds the enemy objects to the enemies array
-allEnemies.push(enemy1, enemy2, enemy3, enemy4);
+allEnemies.push(enemy1, enemy11, enemy2, enemy3, enemy33, enemy4, enemy44);
 
 
 // Create the collectible objects
 const heart = new Collectibles(105,125);
+const gem = new Gem(405, 219);
 
 
 // This listens for key presses and sends the keys to your
