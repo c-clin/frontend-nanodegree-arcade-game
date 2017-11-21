@@ -180,7 +180,7 @@ var Engine = (function(global) {
         'images/char-boy.png',
         'images/char-horn-girl.png',
         'images/Heart.png',
-        'images/Gem Orange.png'
+        'images/Gem-Orange.png'
     ]);
     Resources.onReady(init);
 

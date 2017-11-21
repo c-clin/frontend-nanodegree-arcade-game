@@ -1,8 +1,14 @@
 let lives = 5;
 let score = 0;
 
+// Renders the current lives and score on the page
 $(".lives").html(lives);
 $(".score").html(score);
+
+// Function to return a random interger inclusive of min and max
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+}
 
 // xy coordinates for the heart collectible 
 horizontals = [-1000, -1000, -1000, -1000, 105, 205, 305, 405, 505, 605];
@@ -59,7 +65,7 @@ class Enemy {
         rect1.y < rect2.y + rect2.height &&
         rect1.height + rect1.y > rect2.y
       ) {
-        console.log("Collision Detected");
+        console.log("Collision detected, player dies");
         player.reset();
         lives--;
         $(".lives").html(lives);
@@ -143,14 +149,16 @@ class Player {
             $(".score").html(score);
             console.log('Score: ' + score);
             heart.setPlacement();
+            console.log("Play wins game");
         }
     }
 }
 
+let collectiblesArray = ["images/Gem-Orange.png", "images/Heart.png"];
 // Create a new class for collectibles
 class Collectibles {
     constructor(x, y) {
-        this.sprite = 'images/Heart.png';
+        this.sprite = collectiblesArray[getRandomInt(0,1)]; // Randomly pics between gem and heart
         this.x = x;
         this.y = y; 
     }
@@ -158,7 +166,7 @@ class Collectibles {
     update(dt) {
         // Call the collision function
         this.setCollision();
-        if (this.x > ctx.canvas.width) this.x = -1000;
+        if (this.x > ctx.canvas.width) this.x = -1000; // Prevents the collectibles from showing outside of the canvas
         if (this.y > ctx.canvas.width) this.y = -1000;
     }
 
@@ -169,10 +177,10 @@ class Collectibles {
     // Randomize the placement of the collectible
     setPlacement() {
         // Randomize the index number picked
-        let horizontal = horizontals[Math.floor(Math.random() * horizontals.length)];
-        let vertical = verticals[Math.floor(Math.random() * verticals.length)];
-        console.log(horizontal);
-        console.log(vertical);
+        let horizontal = horizontals[getRandomInt(0,9)];
+        let vertical = verticals[getRandomInt(0,8)];
+        console.log("Heart x: " + horizontal);
+        console.log("Heart y: " + vertical);
         // Set the placement equal to the randomized placement
         this.x = horizontal;
         this.y = vertical;
@@ -200,26 +208,33 @@ class Collectibles {
         rect1.y < rect2.y + rect2.height &&
         rect1.height + rect1.y > rect2.y
         ) {
-
-        console.log("Heart Collision Detected");
-        lives++;
-        $(".lives").html(lives);
-        this.setPlacement();
+            console.log("Collectible Collision Detected");
+            if (this.sprite === "images/Heart.png") {
+                lives++;
+                $(".lives").html(lives);
+                this.setPlacement();
+            }
+            else {
+                score++;
+                $(".score").html(score);
+                this.setPlacement();
+            }
         }
     }
 } 
 
-class Gem extends Collectibles {
-    constructor(x, y) {
-        super(x, y);
-        this.sprite = "images/Gem Orange.png";
-    }
+// Creates a Gem subclass of Collectibles 
+// class Gem extends Collectibles {  
+//     constructor(x, y) {
+//         super(x, y);
+//         this.sprite = "images/Gem Orange.png";
+//     }
 
-   render() {
-        super.render();
-    }
+//    render() {
+//         super.render();
+//     }
 
-}
+// }
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
@@ -243,8 +258,6 @@ allEnemies.push(enemy1, enemy11, enemy2, enemy3, enemy33, enemy4, enemy44);
 
 // Create the collectible objects
 const heart = new Collectibles(105,125);
-const gem = new Gem(405, 219);
-
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
