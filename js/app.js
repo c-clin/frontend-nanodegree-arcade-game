@@ -145,7 +145,7 @@ class Player {
     winGame() {
         if (this.y < 0) {
             this.reset(); 
-            score++;
+            score = score + 1000;
             $(".score").html(score);
             console.log('Score: ' + score);
             heart.setPlacement();
@@ -176,7 +176,7 @@ class Collectibles {
 
     // Randomize the placement of the collectible
     setPlacement() {
-        // Randomize the index number picked
+        // Randomize the index number picked from the relative arrays
         let horizontal = horizontals[getRandomInt(0,9)];
         let vertical = verticals[getRandomInt(0,8)];
         console.log("Heart x: " + horizontal);
@@ -215,7 +215,7 @@ class Collectibles {
                 this.setPlacement();
             }
             else {
-                score++;
+                score = score + 500;
                 $(".score").html(score);
                 this.setPlacement();
             }
@@ -270,5 +270,11 @@ document.addEventListener('keyup', function(e) {
     };
     player.handleInput(allowedKeys[e.keyCode]);
     player.setBoundaries();
-    player.winGame();
+    // Allows player to stand on the water first before resetting its placement
+    setTimeout( function() {
+        player.winGame();
+    }, 700);
 });
+
+
+
