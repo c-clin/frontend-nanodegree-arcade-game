@@ -10,7 +10,7 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-// xy coordinates for the heart collectible 
+// xy coordinates for the collectibles
 horizontals = [-1000, -1000, -1000, -1000, 105, 205, 305, 405, 505, 605];
 verticals = [-1000, -1000, -1000, -1000, 40, 125, 201 ,295];
 
@@ -84,7 +84,9 @@ class Player {
     }
 
     update(dt) {
-
+        this.setBoundaries();
+        this.winGame();
+        this.loseGame();
     }
 
     render() {
@@ -142,7 +144,7 @@ class Player {
     }
 
     // Resets the player position when it reaches the water
-    winGame() {
+    score() {
         if (this.y < 0) {
             this.reset(); 
             score = score + 1000;
@@ -152,6 +154,27 @@ class Player {
             console.log("Play wins game");
         }
     }
+
+    // When player wins the game
+    winGame() {
+        if (score === 10000) {
+            console.log("Player wins game!!!");
+            $("#game-over").html("YOU WON!");
+            $("#hidden").css("display", "block"); // Displays the game over box
+
+        }
+    }
+
+    // When player loses the game
+    loseGame() {
+        if (lives === 0) {
+            console.log("player loses game!!!");
+            this.y = this.y + 3; // Wants the character to fall of the grid when loses, need to stop player.reset()
+            $("#game-over").html("GAME OVER");
+            $("#hidden").css("display", "block"); // Displays the game over box
+        }
+    }
+
 }
 
 let collectiblesArray = ["images/Gem-Orange.png", "images/Heart.png"];
@@ -208,37 +231,22 @@ class Collectibles {
         rect1.y < rect2.y + rect2.height &&
         rect1.height + rect1.y > rect2.y
         ) {
-            console.log("Collectible Collision Detected");
+            console.log("Collects detected");
             if (this.sprite === "images/Heart.png") {
-                lives++;
+                lives++; // Player's life +1 when collect the heart
                 $(".lives").html(lives);
-                this.setPlacement();
+                console.log("Player collects heart")
+                this.setPlacement(); 
             }
             else {
-                score = score + 500;
+                score = score + 500; // Player score +500 when collect the gem 
                 $(".score").html(score);
+                console.log("Player collects gem");
                 this.setPlacement();
             }
         }
     }
 } 
-
-// Creates a Gem subclass of Collectibles 
-// class Gem extends Collectibles {  
-//     constructor(x, y) {
-//         super(x, y);
-//         this.sprite = "images/Gem Orange.png";
-//     }
-
-//    render() {
-//         super.render();
-//     }
-
-// }
-
-// Now instantiate your objects.
-// Place all enemy objects in an array called allEnemies
-// Place the player object in a variable called player
 
 // Creates the player object
 const player = new Player(305, 465);
@@ -269,12 +277,33 @@ document.addEventListener('keyup', function(e) {
         40: 'down'
     };
     player.handleInput(allowedKeys[e.keyCode]);
-    player.setBoundaries();
     // Allows player to stand on the water first before resetting its placement
     setTimeout( function() {
-        player.winGame();
-    }, 700);
+        player.score();
+    }, 1000);
 });
 
 
+// Allows the player to click play again to restart the game
+$("#play-again").click (function() {
+    lives = 5; // Reset the player's lives
+    score = 0; // Reset the player's score
+    $(".lives").html(lives);
+    $(".score").html(score);
+    player.reset(); // Reset the player's position
+    heart.setPlacement(); // Reset the collectible's position
+    $("#hidden").css("display", "none"); // Hides the game over box
+    $("#hidden").parent().css('z-index', 3000);
+})
 
+
+
+/*
+-------- Questions:
+- When the player loses and want to fall off the grid, how to disable setBouondaries?
+- How to center the game over box?
+- How to randomly choose beteen heart and gem to appear?
+- How to stop the none stop log message when the player wins or loses?
+- Is there a better way to randomly select the xy coordinates for the collectible?
+
+*/

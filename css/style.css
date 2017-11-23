@@ -1,9 +1,15 @@
 body {
     text-align: center;
-    background-image: url('../images/background.png');
+    background-image: url('../images/background.png'); /*background image */
     background-position: center;
     background-size: cover;
 }
+
+canvas {
+	z-index: 10;
+}
+
+/* title and the scoreboard */
 
 .title {
 	font-family: 'Luckiest Guy';
@@ -25,4 +31,43 @@ h1 {
 
 .lives {
 	margin-right: 5px;
+}
+
+/* Game Over Board */ 
+
+.container {
+	position: relative;
+	z-index: 10;
+}
+
+#hidden {
+	font-family: 'Luckiest Guy';
+	background: rgba(225,225,225); /*Fall back for older browsers*/
+	background: rgba(225,225,225,0.5);
+	margin: auto;
+	width: 70%;
+	border: 1px solid;
+	padding: 15px;
+	display: none;
+	z-index: -1000;
+	position: absolute;
+}
+
+#game-over {
+	color: #f9e440;
+	text-shadow: 5px 4px 6px #0d2244;
+	font-size: 500%;
+}
+
+#play-again {
+	color: #f9e440;
+	text-shadow: 5px 4px 6px #0d2244;
+	font-size: 500%;
+	cursor: pointer;
+
+}
+
+#play-again:hover {
+	color: black;
+	text-shadow: 2px 2px #ff0000;
 }
