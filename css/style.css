@@ -45,12 +45,14 @@ h1 {
 	background: rgba(225,225,225); /*Fall back for older browsers*/
 	background: rgba(225,225,225,0.5);
 	margin: auto;
-	width: 70%;
+	width: 50%;
 	border: 1px solid;
 	padding: 15px;
 	display: none;
 	z-index: -1000;
 	position: absolute;
+	top: 120px;
+	margin-left: 23.3%;
 }
 
 #game-over {

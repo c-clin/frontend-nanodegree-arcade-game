@@ -11,8 +11,8 @@ function getRandomInt(min, max) {
 }
 
 // xy coordinates for the collectibles
-horizontals = [-1000, -1000, -1000, -1000, 105, 205, 305, 405, 505, 605];
-verticals = [-1000, -1000, -1000, -1000, 40, 125, 201 ,295];
+horizontals = [-1000, 105, 205, 305, 405, 505, 605];
+verticals = [-1000, 40, 125, 201 ,295];
 
 // Enemies our player must avoid
 
@@ -67,6 +67,7 @@ class Enemy {
       ) {
         console.log("Collision detected, player dies");
         player.reset();
+        collectible.setPlacement();
         lives--;
         $(".lives").html(lives);
       }
@@ -150,18 +151,17 @@ class Player {
             score = score + 1000;
             $(".score").html(score);
             console.log('Score: ' + score);
-            heart.setPlacement();
+            collectible.setPlacement();
             console.log("Play wins game");
         }
     }
 
     // When player wins the game
     winGame() {
-        if (score === 10000) {
+        if (score >= 10000) {
             console.log("Player wins game!!!");
             $("#game-over").html("YOU WON!");
             $("#hidden").css("display", "block"); // Displays the game over box
-
         }
     }
 
@@ -177,7 +177,7 @@ class Player {
 
 }
 
-let collectiblesArray = ["images/Gem-Orange.png", "images/Heart.png"];
+let collectiblesArray = ["images/Gem-Orange.png", "images/Gem-Orange.png", "images/Heart.png", "images/Heart.png", "images/Star.png", "images/Rock.png"];
 // Create a new class for collectibles
 class Collectibles {
     constructor(x, y) {
@@ -200,10 +200,11 @@ class Collectibles {
     // Randomize the placement of the collectible
     setPlacement() {
         // Randomize the index number picked from the relative arrays
-        let horizontal = horizontals[getRandomInt(0,9)];
-        let vertical = verticals[getRandomInt(0,8)];
-        console.log("Heart x: " + horizontal);
-        console.log("Heart y: " + vertical);
+        let horizontal = horizontals[getRandomInt(0,horizontals.length-1)];
+        let vertical = verticals[getRandomInt(0,verticals.length-1)];
+        console.log("collectible x: " + horizontal);
+        console.log("collectible y: " + vertical);
+        this.sprite = collectiblesArray[getRandomInt(0, collectiblesArray.length-1)];
         // Set the placement equal to the randomized placement
         this.x = horizontal;
         this.y = vertical;
@@ -211,6 +212,7 @@ class Collectibles {
 
     // Create a collision method with the player
     setCollision() {
+        // Collectible rectangle
         var rect1 = {
         x: this.x,
         y: this.y,
@@ -218,6 +220,7 @@ class Collectibles {
         height: 40
         };
 
+        // Player rectangle
         var rect2 = {
         x: player.x,
         y: player.y,
@@ -225,18 +228,31 @@ class Collectibles {
         height: 40
         };
 
+        // When player rectangle hits collectible rectangle
         if (
         rect1.x < rect2.x + rect2.width &&
         rect1.x + rect1.width > rect2.x &&
         rect1.y < rect2.y + rect2.height &&
         rect1.height + rect1.y > rect2.y
         ) {
-            console.log("Collects detected");
+            console.log("Collision detected");
             if (this.sprite === "images/Heart.png") {
                 lives++; // Player's life +1 when collect the heart
                 $(".lives").html(lives);
                 console.log("Player collects heart")
                 this.setPlacement(); 
+            }
+            if (this.sprite === "images/Star.png") {
+                score = score + 1000; // Player score +1000 when collect the star 
+                $(".score").html(score);
+                console.log("Player collects star");
+                this.setPlacement();
+            }
+            if (this.sprite === "images/Rock.png") {
+                score = score - 500; // Player score -500 when collect the rock 
+                $(".score").html(score);
+                console.log("Player collects rock");
+                this.setPlacement();
             }
             else {
                 score = score + 500; // Player score +500 when collect the gem 
@@ -265,7 +281,7 @@ allEnemies.push(enemy1, enemy11, enemy2, enemy3, enemy33, enemy4, enemy44);
 
 
 // Create the collectible objects
-const heart = new Collectibles(105,125);
+const collectible = new Collectibles(105,125);
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
@@ -291,11 +307,10 @@ $("#play-again").click (function() {
     $(".lives").html(lives);
     $(".score").html(score);
     player.reset(); // Reset the player's position
-    heart.setPlacement(); // Reset the collectible's position
+    collectible.setPlacement(); // Reset the collectible's position
     $("#hidden").css("display", "none"); // Hides the game over box
     $("#hidden").parent().css('z-index', 3000);
 })
-
 
 
 /*

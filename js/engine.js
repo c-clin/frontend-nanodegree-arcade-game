@@ -94,7 +94,7 @@ var Engine = (function(global) {
             enemy.update(dt);
         });
         player.update();
-        heart.update();
+        collectible.update();
     }
 
     /* This function initially draws the "game level", it will then call
@@ -157,7 +157,7 @@ var Engine = (function(global) {
 
         player.render();
 
-        heart.render();
+        collectible.render();
     }
 
     /* This function does nothing but it could have been a good place to
@@ -180,7 +180,9 @@ var Engine = (function(global) {
         'images/char-boy.png',
         'images/char-horn-girl.png',
         'images/Heart.png',
-        'images/Gem-Orange.png'
+        'images/Gem-Orange.png',
+        'images/Star.png',
+        "images/Rock.png"
     ]);
     Resources.onReady(init);
 
