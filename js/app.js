@@ -253,13 +253,13 @@ const player = new Player(305, 465);
 
 // Creates the enemies objects
 allEnemies = [];
-const enemy1 = new Enemy(5, 75, 300); 
-const enemy11 = new Enemy(5, 75, 550);
-const enemy2 = new Enemy(5, 160, 450);
-const enemy3 = new Enemy(5, 245, 350);
-const enemy33 = new Enemy(5, 245, 600);
-const enemy4 = new Enemy(5, 330, 250);
-const enemy44 = new Enemy(5, 330, 500);
+const enemy1 = new Enemy(20, 75, 320); 
+const enemy11 = new Enemy(5, 75, 520);
+const enemy2 = new Enemy(3, 160, 430);
+const enemy3 = new Enemy(10, 245, 300);
+const enemy33 = new Enemy(7, 245, 630);
+const enemy4 = new Enemy(15, 330, 350);
+const enemy44 = new Enemy(10, 330, 520);
 // Adds the enemy objects to the enemies array
 allEnemies.push(enemy1, enemy11, enemy2, enemy3, enemy33, enemy4, enemy44);
 
