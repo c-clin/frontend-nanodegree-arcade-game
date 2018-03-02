@@ -17,5 +17,10 @@ Below are the list of collectibles available and their functions:
 * Star: +800 score
 * Rock: -500 score
 
+### Demo
+* Please click the link below to see a demo of the application.
+* [Demo] (https://chickencat.github.io/frontend-nanodegree-arcade-game/)
+
+
 
 
