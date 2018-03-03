@@ -1,5 +1,8 @@
 # Arcade Frogger Clone Project
 
+### What is it
+This app uses Object-Oriented JavaScript to neatly put together a recreation of a simple arcade game.
+
 ### Installing
 Download the repository and unzip the file. Open `index.html` to start playing.
 
