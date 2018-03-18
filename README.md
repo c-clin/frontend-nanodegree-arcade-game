@@ -22,7 +22,7 @@ Below are the list of collectibles available and their functions:
 
 ### Demo
 * Please click the link below to see a demo of the application.
-* [Demo] (https://chickencat.github.io/frontend-nanodegree-arcade-game/)
+* [Demo] (https://c-clin.github.io/frontend-nanodegree-arcade-game/)
 
 
 
